@@ -14,9 +14,10 @@ namespace BlogApp.Data.Concrete.EfCore
       }
       public DbSet<Blog> Blogs { get; set; }
       public DbSet<Category> Categories { get; set; }
-     /* protected override void OnModelCreating(ModelBuilder modelBuilder)
-      {
-        modelBuilder.Seed();
-      }*/
-   }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>().ToTable("Categories");
+            modelBuilder.Entity<Blog>().ToTable("Blogs");
+        }
+    }
 }

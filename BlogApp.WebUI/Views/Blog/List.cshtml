@@ -18,6 +18,7 @@
 								<th>Title</th>
 								<th>Date</th>
 								<th>is Approved</th>
+								<th>is Home</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -33,6 +34,16 @@
 									<td>@item.Date</td>
 									<td>
 										@if (item.isApproved)
+										{
+											<i class="fa fa-check" aria-hidden="true">✔</i>
+										}
+										else
+										{
+											<i class="fa fa-times" aria-hidden="true">X</i>
+										}
+									</td>
+									<td>
+										@if (item.isHome)
 										{
 											<i class="fa fa-check" aria-hidden="true">✔</i>
 										}

@@ -20,7 +20,7 @@ namespace BlogApp.WebUI.Controllers
       }
       public IActionResult Index()
       {
-         return View();
+         return View(_BlogRepository.GetAll().Where(i=>i.isApproved));
       }
       public IActionResult List()
       {

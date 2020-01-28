@@ -22,7 +22,7 @@ namespace BlogApp.WebUI.Controllers
 
       public IActionResult Index()
       {
-         return View(blogRepository.GetAll());
+         return View(blogRepository.GetAll().Where(i=>i.isApproved == true && i.isHome == true));
       }
       public IActionResult Privacy()
       {

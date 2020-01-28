@@ -29,24 +29,25 @@ namespace BlogApp.Data.Concrete.EfCore
       public static void Seed(IApplicationBuilder app)
       {
          BlogContext context = app.ApplicationServices.GetRequiredService<BlogContext>();
-         context.Database.Migrate();
-         if (context.Categories.Any())
+            context.Database.EnsureCreated();
+            context.Database.Migrate();
+         if (!context.Categories.Any())
          {
             context.Categories.AddRange(
-               new Category() { Name = "Kategori 1" },
-               new Category() { Name = "Kategori 2" },
-               new Category() { Name = "Kategori 3" }
+               new Category() { Name = "Genel" },
+               new Category() { Name = "Bilgisayar" },
+               new Category() { Name = "Telefon" }
                );
-            var sonuc = context.SaveChanges();
+            context.SaveChanges();
          }
-         if (context.Blogs.Any())
+         if (!context.Blogs.Any())
          {
             context.Blogs.AddRange(
                new Blog() { Title = "Kategori 1 Blog 1", CategoryId = 1, Date = DateTime.Now, isApproved = true, Description = "", Image = "" },
                new Blog() { Title = "Kategori 2 Blog 1", CategoryId = 2, Date = DateTime.Now, isApproved = true, Description = "", Image = "" },
                new Blog() { Title = "Kategori 3 Blog 1", CategoryId = 3, Date = DateTime.Now, isApproved = true, Description = "", Image = "" }
                );
-            var sonuc = context.SaveChanges();
+            context.SaveChanges();
          }
       }
    }

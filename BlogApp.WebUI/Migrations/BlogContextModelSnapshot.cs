@@ -47,6 +47,9 @@ namespace BlogApp.WebUI.Migrations
                     b.Property<bool>("isApproved")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("isHome")
+                        .HasColumnType("bit");
+
                     b.HasKey("BlogId");
 
                     b.HasIndex("CategoryId");
