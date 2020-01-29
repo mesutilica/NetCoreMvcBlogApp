@@ -4,7 +4,7 @@
 }
 	<div class="container mt-3">
 		<h2>Blog list</h2>
-		<a asp-action="Create" asp-controller="Blog">Blog Ekle</a>
+		<a asp-action="Create" asp-controller="Blog" class="btn btn-dark">Blog Ekle</a>
 		<br />
 		<div class="row">
 			<div class="col">
@@ -19,6 +19,7 @@
 								<th>Date</th>
 								<th>is Approved</th>
 								<th>is Home</th>
+								<th>is Slider</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -44,6 +45,16 @@
 									</td>
 									<td>
 										@if (item.isHome)
+										{
+											<i class="fa fa-check" aria-hidden="true">✔</i>
+										}
+										else
+										{
+											<i class="fa fa-times" aria-hidden="true">X</i>
+										}
+									</td>
+									<td>
+										@if (item.isSlider)
 										{
 											<i class="fa fa-check" aria-hidden="true">✔</i>
 										}
