@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlogApp.WebUI.Entities
 {
-    public class CustomIdentityUser: IdentityUser
+    public class AppIdentityUser: IdentityUser
     {
     }
 }

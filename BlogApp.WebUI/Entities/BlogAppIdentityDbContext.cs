@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlogApp.WebUI.Entities
 {
-    public class BlogAppIdentityDbContext: IdentityDbContext<CustomIdentityUser, CustomIdentityRole, string>
+    public class BlogAppIdentityDbContext: IdentityDbContext<AppIdentityUser, CustomIdentityRole, string>
     {
         public BlogAppIdentityDbContext(DbContextOptions<BlogAppIdentityDbContext> options) : base(options)
         {

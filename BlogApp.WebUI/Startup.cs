@@ -53,9 +53,9 @@ namespace BlogApp.WebUI
             );
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "Security/Login";
-                options.LogoutPath = "Security/Logout";
-                options.AccessDeniedPath = "Security/AccessDenied";
+                options.LoginPath = "/Security/Login";
+                options.LogoutPath = "/Security/Logout";
+                options.AccessDeniedPath = "/Security/AccessDenied";
                 options.SlidingExpiration = true;//çerez bi süre sonra iptal olsun
 
             });
