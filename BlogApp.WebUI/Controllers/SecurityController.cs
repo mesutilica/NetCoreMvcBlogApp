@@ -64,6 +64,7 @@ namespace BlogApp.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
+                
                 return View(registerViewModel);
             }
             var user = new AppIdentityUser
@@ -75,10 +76,11 @@ namespace BlogApp.WebUI.Controllers
             if (result.Succeeded)
             {
                 var dogrulamakodu = _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var callbackurl = Url.Action("ConfirmEmail", "Security", new { userId = user.Id, code = dogrulamakodu });
+                var callbackurl = Url.Action("ConfirmEmail", "Security", new { userId = user.Id, code = dogrulamakodu.Result });
                 //Doğrulama maili kodu alanı
-                return RedirectToAction("Login", "Admin");
+                return RedirectToAction("Login", "Security");
             }
+            ModelState.AddModelError(String.Empty, "Kayıt Başarısız!");
             return View(registerViewModel);
         }
         [HttpPost]

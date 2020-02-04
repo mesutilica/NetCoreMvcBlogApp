@@ -34,21 +34,27 @@ namespace BlogApp.WebUI
             services.AddMvc();
             services.AddTransient<ICategoryRepository, EfCategoryRepository>();
             services.AddTransient<IBlogRepository, EfBlogRepository>();
+            services.AddTransient<IBlogRepository, EfBlogRepository>();
             services.AddControllersWithViews();
             services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("BlogApp.WebUI")));
             services.AddDbContext<BlogAppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<AppIdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<BlogAppIdentityDbContext>()
                 .AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
             {
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 5;
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.AllowedForNewUsers = true;
+                //options.Lockout.MaxFailedAccessAttempts = 5;
+                //options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                //options.Lockout.AllowedForNewUsers = true;
                 options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedAccount = false;
+
             }
             );
             services.ConfigureApplicationCookie(options =>
@@ -61,11 +67,14 @@ namespace BlogApp.WebUI
             });
             services.AddSession();
             services.AddDistributedMemoryCache();
+            services.AddScoped<UserManager<AppIdentityUser>>();
+            services.AddScoped<SignInManager<AppIdentityUser>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            env.EnvironmentName = Microsoft.AspNetCore.Hosting.EnvironmentName.Development;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
